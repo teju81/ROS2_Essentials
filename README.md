@@ -105,16 +105,10 @@ ros2 pkg create --build-type ament_python --license Apache-2.0 <package_name>
 You will now have a new folder within your workspace’s ``src`` directory called ``my_package``.
 
 
+**Publisher and Subscriber to Topics**
+     1. minimal subscriber and publisher
+     2. some others....
 
-
-(iii) From the root folder <ros2_ws> run the following commands
-- create pkg
-- colcon build
-- source install/setup.bash
-- ros2 run <package_name> <node_executable_name>
-
-
-3. Publish Subscribe to Topics
 4. Services
 5. Custom Messages
 6. Action Servers
