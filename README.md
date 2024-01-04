@@ -13,6 +13,27 @@ Run the following commands to create your workspace
 
 2. Create a Package
 
+The simplest possible CPP package may have a file structure that looks like:
+
+```
+my_package/
+     CMakeLists.txt
+     include/my_package/
+     package.xml
+     src/
+```
+
+The simplest possible python package may have a file structure that looks like:
+
+```
+my_package/
+      package.xml
+      resource/my_package
+      setup.cfg
+      setup.py
+      my_package/
+```
+
 A single workspace can contain as many packages as you want, each in their own folder.
 You can also have packages of different build types in one workspace (CMake, Python, etc.).
 You cannot have nested packages.
