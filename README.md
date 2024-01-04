@@ -30,7 +30,7 @@ Each src folder is a package by itself
   - CMakeLists.txt
 
 
-From the root folder <ros2_ws> run
+From the root folder <ros2_ws> run the following commands
 - colcon build
 - . install/setup.bash
 - ros2 run <package_name> <node_executable_name>
