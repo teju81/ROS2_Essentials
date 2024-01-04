@@ -22,11 +22,11 @@ Run the following commands to create your workspace
       .
       - src n
 
-workspace_folder/</br>
-    src/</br>
-      cpp_package_1/</br>
-          CMakeLists.txt</br> 
-          include/cpp_package_1/</br>
+workspace_folder/\
+    src/\
+      cpp_package_1/\
+          CMakeLists.txt\
+          include/cpp_package_1/\
           package.xml</br>
           src/</br>
       py_package_1/
