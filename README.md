@@ -304,6 +304,7 @@ int main(int argc, char * argv[])
 ### 3.2 Writing a simple publisher and subscriber in Python
 
 **Publisher**
+
 This is a simple python publisher.
 
 ```
