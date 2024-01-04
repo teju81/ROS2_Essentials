@@ -4,7 +4,7 @@
 This repository will serve as a quick tutorial/recap and also template for your awesome robotics software projects that will be based on ROS2. I am using ROS2 Iron at the time of making this tutorial.
 
 
-1. Create Workspace
+**1. Create Workspace**
 
 Run the following commands to create your workspace
 - mkdir -p ~/ros2_ws/src
@@ -63,7 +63,7 @@ workspace_folder/
             src/
 ```
 
-2. Create a Package
+**2. Create a Package**
 
 Make sure you are in the src folder before running the package creation command
 
