@@ -303,6 +303,97 @@ int main(int argc, char * argv[])
 
 ### 3.2 Writing a simple publisher and subscriber in Python
 
+**Publisher**
+This is a simple python publisher.
+
+```
+import rclpy
+from rclpy.node import Node
+
+from std_msgs.msg import String
+
+
+class MultiRobotPyPublisherClass(Node):
+
+    def __init__(self):
+        super().__init__('multi_robot_py_publisher_node')
+        self.queue_size_ = 10
+        self.publisher_ = self.create_publisher(String, 'multi_robot_topic', self.queue_size_)
+        timer_period = 0.5  # seconds
+        self.timer = self.create_timer(timer_period, self.timer_callback)
+        self.i = 0
+
+    def timer_callback(self):
+        msg = String()
+        msg.data = 'Hello World: %d' % self.i
+        self.publisher_.publish(msg)
+        self.get_logger().info('Publishing: "%s"' % msg.data)
+        self.i += 1
+
+
+def main(args=None):
+    rclpy.init(args=args)
+
+    multi_robot_py_publisher_obj = MultiRobotPyPublisherClass()
+
+    rclpy.spin(multi_robot_py_publisher_obj)
+
+    # Destroy the node explicitly
+    # (optional - otherwise it will be done automatically
+    # when the garbage collector destroys the node object)
+    multi_robot_py_publisher_obj.destroy_node()
+    rclpy.shutdown()
+
+
+if __name__ == '__main__':
+    main()
+```
+
+**Subscriber**
+
+This is a simple subscriber.
+
+```
+import rclpy
+from rclpy.node import Node
+
+from std_msgs.msg import String
+
+
+class MultiRobotPySubscriberClass(Node):
+
+    def __init__(self):
+        super().__init__('multi_robot_subscriber_node')
+        self.queue_size_ = 10
+        self.subscription = self.create_subscription(
+            String,
+            'multi_robot_topic',
+            self.listener_callback,
+            self.queue_size_)
+        self.subscription  # prevent unused variable warning
+
+    def listener_callback(self, msg):
+        self.get_logger().info('I heard: "%s"' % msg.data)
+
+
+def main(args=None):
+    rclpy.init(args=args)
+
+    multi_robot_py_subscriber_obj = MultiRobotPySubscriberClass()
+
+    rclpy.spin(multi_robot_py_subscriber_obj)
+
+    # Destroy the node explicitly
+    # (optional - otherwise it will be done automatically
+    # when the garbage collector destroys the node object)
+    multi_robot_py_subscriber_obj.destroy_node()
+    rclpy.shutdown()
+
+
+if __name__ == '__main__':
+    main()
+```
+
 
 
 4. Services
