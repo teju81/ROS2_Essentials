@@ -5,14 +5,16 @@ This repository will serve as a quick tutorial/recap and also template for your 
 
 
 1. Create Workspace
+
+Run the following commands to create your workspace
 - mkdir <ros2_ws>
 - cd <ros2_ws>
 - mkdir src
 
 
 2. Create a Package
-- Your package structure will be like
-  
+
+Your package structure will be like
   - <ros2_ws>/src
       - src 1
       - src 2
@@ -21,13 +23,12 @@ This repository will serve as a quick tutorial/recap and also template for your 
       .
       - src n
 
-Each src folder is a package by itself
-
-- Each package has the following structure
-  - include
-  - src
-  - package.xml
-  - CMakeLists.txt
+Each src folder is a package by itself. Each package has the following structure
+  - package folder
+    - include
+    - src
+    - package.xml
+    - CMakeLists.txt
 
 
 From the root folder <ros2_ws> run the following commands
