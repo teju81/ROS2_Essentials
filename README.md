@@ -27,7 +27,8 @@ source install/setup.bash
 ```
 it is very important that you open a new terminal, separate from the one where you built the workspace. Sourcing an overlay in the same terminal where you built, or likewise building where an overlay is sourced, may create complex issues.
 
-**Package Structure**
+**Packages**
+
 The simplest possible CPP package may have a file structure that looks like:
 
 ```
