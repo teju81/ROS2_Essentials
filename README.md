@@ -692,7 +692,7 @@ Interfaces need to be defined as a package and you need to make sure you are def
 
 The .msg, .srv and .action files are required to be placed in directories called msg, srv and action, respectively. Create the directories in ``multi_robot_ws/src/multi_robot_interfaces``:
 
-``mkdir msg srv``
+``mkdir msg srv action``
 
 Remarks:
 
