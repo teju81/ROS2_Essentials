@@ -24,10 +24,10 @@ This repository will serve as a quick tutorial/recap and also template for your 
 Each src folder is a package by itself
 
 - Each package has the following structure
-- include
-- src
-- package.xml
-- CMakeLists.txt
+  - include
+  - src
+  - package.xml
+  - CMakeLists.txt
 
 
 From the root folder <ros2_ws> run
