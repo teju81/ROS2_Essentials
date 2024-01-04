@@ -4,7 +4,7 @@
 This repository will serve as a quick tutorial/recap and also template for your awesome robotics software projects that will be based on ROS2. I am using ROS2 Iron on Ubuntu 22.04 at the time of making this tutorial.
 
 
-**1. Create Workspace**
+## Create Workspace
 
 Run the following commands to create your workspace
 ```
@@ -27,7 +27,7 @@ source install/setup.bash
 ```
 it is very important that you open a new terminal, separate from the one where you built the workspace. Sourcing an overlay in the same terminal where you built, or likewise building where an overlay is sourced, may create complex issues.
 
-**Packages**
+## Package Structure
 
 The simplest possible CPP package may have a file structure that looks like:
 
@@ -82,7 +82,7 @@ workspace_folder/
             src/
 ```
 
-**2. Create a Package**
+## Create a Package
 
 Make sure you are in the src folder before running the package creation command
 
@@ -105,7 +105,7 @@ ros2 pkg create --build-type ament_python --license Apache-2.0 <package_name>
 You will now have a new folder within your workspace’s ``src`` directory called ``my_package``.
 
 
-**Publisher and Subscriber to Topics**
+## Publisher and Subscriber to Topics
      
      1. minimal subscriber and publisher
      2. some others....
