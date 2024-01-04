@@ -39,7 +39,28 @@ Note: ROS 2 is “anonymous”. This means that when a subscriber gets a piece o
 
 ### 1.4 Services
 
+In ROS 2, a service refers to a remote procedure call. In other words, a node can make a remote procedure call to another node which will do a computation and return a result.
+
+In ROS 2, services are expected to return quickly, as the client is generally waiting on the result. Services should never be used for longer running processes, in particular processes that might need to be preempted for exceptional situations. If you have a service that will be doing a long-running computation, consider using an action instead.
+
+
+A service consists of two parts: the service server and the service client. There can only be one server and multiple clients for a particular service.
+
+
 ### 1.5 Actions
+
+In ROS 2, an action refers to a long-running remote procedure call with feedback and the ability to cancel or preempt the goal. For instance, the high-level state machine running a robot may call an action to tell the navigation subsystem to travel to a waypoint, which may take several seconds (or minutes) to do. Along the way, the navigation subsystem can provide feedback on how far along it is, and the high-level state machine has the option to cancel or preempt the travel to that waypoint.
+
+In ROS 2, actions are expected to be long running procedures, as there is overhead in setting up and monitoring the connection. If you need a short running remote procedure call, consider using a service instead.
+
+An Action consists of two parts: the action server and the action client. There can only be one server and multiple clients for a particular Action.
+
+
+### 1.6 Parameters
+
+Parameters in ROS 2 are associated with individual nodes. Parameters are used to configure nodes at startup (and during runtime), without changing the code. The lifetime of a parameter is tied to the lifetime of the node (though the node could implement some sort of persistence to reload values after restart).
+
+**To be completed**
 
 
 ## 2 Template for Multi Robot ROS2 Software
