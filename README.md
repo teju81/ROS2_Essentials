@@ -22,26 +22,26 @@ Run the following commands to create your workspace
       .
       - src n
 
-workspace_folder/
-    src/
-      cpp_package_1/
-          CMakeLists.txt
-          include/cpp_package_1/
-          package.xml
-          src/
+workspace_folder/\
+    src/\
+      cpp_package_1/\
+          CMakeLists.txt\
+          include/cpp_package_1/\
+          package.xml\
+          src/\
 
-      py_package_1/
-          package.xml
-          resource/py_package_1
-          setup.cfg
-          setup.py
-          py_package_1/
-      ...
-      cpp_package_n/
-          CMakeLists.txt
-          include/cpp_package_n/
-          package.xml
-          src/
+      py_package_1/\
+          package.xml\
+          resource/py_package_1\
+          setup.cfg\
+          setup.py\
+          py_package_1/\
+      ...\
+      cpp_package_n/\
+          CMakeLists.txt\
+          include/cpp_package_n/\
+          package.xml\
+          src/\
 
 (ii) Each src folder is a package by itself. Each package has the following structure
   - package folder
