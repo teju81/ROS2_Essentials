@@ -25,7 +25,9 @@ A trivial workspace might look like:
 '''
 
   workspace_folder/
+  
       src/
+      
         cpp_package_1/
             CMakeLists.txt
             include/cpp_package_1/
