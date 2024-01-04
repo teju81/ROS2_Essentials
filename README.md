@@ -83,7 +83,7 @@ The command syntax for creating a new python package in ROS 2 is:
 ros2 pkg create --build-type ament_python --license Apache-2.0 <package_name>
 ```
 
-You will now have a new folder within your workspace’s ``src`` directory called my_package.
+You will now have a new folder within your workspace’s ``src`` directory called ``my_package``.
 
 
 
