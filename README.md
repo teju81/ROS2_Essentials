@@ -771,8 +771,22 @@ string full_name "John Doe"
 int32[] samples [-200, -100, 0, 100, 200]
 ```
 
+#### 4.1.6 Constants
 
-#### 4.1.5 Remarks on Messages
+Each constant definition is like a field description with a default value, except that this value can never be changed programatically. This value assignment is indicated by use of an equal ‘=’ sign, e.g.
+
+``constanttype CONSTANTNAME=constantvalue``
+
+For example:
+
+```
+int32 X=123
+int32 Y=-123
+string FOO="foo"
+string EXAMPLE='bar'
+```
+
+#### 4.1.7 Remarks on Messages
 
 - One needs to define custom messages in .msg files and place them in the msg directory
 - One can define multiple custom messages, each in its own .msg file
