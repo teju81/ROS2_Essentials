@@ -22,12 +22,9 @@ This keeps the top level of the workspace “clean”.
 
 A trivial workspace might look like:
 
-'''
-
-  workspace_folder/
-  
+```
+workspace_folder/
       src/
-      
         cpp_package_1/
             CMakeLists.txt
             include/cpp_package_1/
@@ -46,7 +43,7 @@ A trivial workspace might look like:
             include/cpp_package_n/
             package.xml
             src/
-'''
+```
 (ii) Each src folder is a package by itself. Each package has the following structure
   - package folder
     - include
