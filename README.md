@@ -14,7 +14,7 @@ Run the following commands to create your workspace
 
 2. Create a Package
 
-Your package structure will be like
+(i) Your overall package structure will be like
   - <ros2_ws>/src
       - src 1
       - src 2
@@ -23,7 +23,7 @@ Your package structure will be like
       .
       - src n
 
-Each src folder is a package by itself. Each package has the following structure
+(ii) Each src folder is a package by itself. Each package has the following structure
   - package folder
     - include
     - src
@@ -31,7 +31,7 @@ Each src folder is a package by itself. Each package has the following structure
     - CMakeLists.txt
 
 
-From the root folder <ros2_ws> run the following commands
+(iii) From the root folder <ros2_ws> run the following commands
 - colcon build
 - . install/setup.bash
 - ros2 run <package_name> <node_executable_name>
