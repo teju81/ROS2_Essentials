@@ -684,12 +684,19 @@ setup(
 - Setting the QoS parameters is the main goal. Look at the code in [3].
   
 
+## 4 Interfaces
+
+- Definitions for custom messages, services and actions
+- Note that interfaces can only be a CMake package, but this doesn’t restrict in which type of packages you can use your messages and services. You can create your own custom interfaces in a CMake package, and then use it in a C++ or Python node.
 
 
-4. Services
-5. Custom Messages
-6. Action Servers
+## 6 Services
 
+To be done
+
+## 7 Action Servers
+
+To be done
 
 ## 7 References
 
