@@ -70,9 +70,14 @@ Make sure you are in the src folder before running the package creation command
 ```
 cd ~/ros2_ws/src
 ```
+
+The command syntax for creating a new CPP package in ROS 2 is:
+
 ```
 ros2 pkg create --build-type ament_cmake --license Apache-2.0 <package_name>
 ```
+
+The command syntax for creating a new python package in ROS 2 is:
 
 ```
 ros2 pkg create --build-type ament_python --license Apache-2.0 <package_name>
