@@ -441,7 +441,11 @@ ament_package()
 
 This is a simple python publisher.
 
-```
+<details>
+
+<summary>Python Publisher Code</summary>
+
+```python
 import rclpy
 from rclpy.node import Node
 
@@ -483,12 +487,17 @@ def main(args=None):
 if __name__ == '__main__':
     main()
 ```
+</details></br>
 
 **Subscriber**
 
 This is a simple subscriber.
 
-```
+<details>
+
+<summary>Python Subscriber Code</summary>
+
+```python
 import rclpy
 from rclpy.node import Node
 
@@ -528,8 +537,79 @@ def main(args=None):
 if __name__ == '__main__':
     main()
 ```
+</details></br>
 
+<details>
 
+<summary>package.xml file</summary>
+
+```
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <!-- Package name must match the project name given in CMakeLists.txt -->
+  <name>multi_robot_py_publisher_package</name>
+  <version>1.0.0</version>
+  <description>Package for Multi Robot Py Publishers</description>
+  <maintainer email="teju81@gmail.com">Raviteja U.</maintainer>
+  <license>Apache-2.0</license>
+  <author email="teju81@gmail.com">Raviteja U.</author>
+```
+```xml
+  <exec_depend>rclpy</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+```
+```
+  <test_depend>ament_copyright</test_depend>
+  <test_depend>ament_flake8</test_depend>
+  <test_depend>ament_pep257</test_depend>
+  <test_depend>python3-pytest</test_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>
+```
+
+</details></br>
+
+<details>
+
+<summary>setup.py file</summary>
+
+```
+from setuptools import find_packages, setup
+
+package_name = 'multi_robot_py_publisher_package'
+
+setup(
+    name=package_name,
+    version='1.0.0',
+    packages=find_packages(exclude=['test']),
+    data_files=[
+        ('share/ament_index/resource_index/packages',
+            ['resource/' + package_name]),
+        ('share/' + package_name, ['package.xml']),
+    ],
+    install_requires=['setuptools'],
+    zip_safe=True,
+    maintainer='Raviteja U.',
+    maintainer_email='teju81@gmail.com',
+    description='Package for Multi Robot Py Publishers',
+    license='Apache-2.0',
+    tests_require=['pytest'],
+```
+```python
+    entry_points={
+        'console_scripts': [
+                'talker = multi_robot_py_publisher_package.multi_robot_publisher:main',
+                'listener = multi_robot_py_publisher_package.multi_robot_subscriber:main',
+        ],
+    },
+)
+```
+
+</details></br>
 
 4. Services
 5. Custom Messages
