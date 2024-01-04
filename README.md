@@ -72,7 +72,8 @@ The ``src`` folder will contain the source code that implements ROS nodes such a
 **package.xml**
 
 The barebones ``package.xml`` will look like this
-```
+
+```xml
 <?xml version="1.0"?>
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
@@ -97,10 +98,12 @@ The barebones ``package.xml`` will look like this
   </export>
 </package>
 ```
+
 **CMakeLists.txt**
 
 The barebones ``CMakeLists.txt`` will look like this
-```
+
+```cmake
 cmake_minimum_required(VERSION 3.8)
 # Project name given must match the package name in package.xml
 project(multi_robot_cpp_publisher_package)
@@ -196,11 +199,11 @@ Nodes are executable processes that communicate over the ROS graph. In this tuto
 
 ### 3.1 Writing a simple publisher and subscriber in C++
 
-**Publisher**
+#### 3.1.1 Publisher
 
 Below is the code for a minimal publisher.
 
-```
+```c++
 // Copyright 2016 Open Source Robotics Foundation, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -262,11 +265,11 @@ int main(int argc, char * argv[])
 }
 ```
 
-**Subscriber**
+#### 3.1.2 Subscriber
 
 Below is the code for a minimal subscriber.
 
-```
+```c++
 #include <memory>
 
 #include "rclcpp/rclcpp.hpp"
@@ -299,6 +302,94 @@ int main(int argc, char * argv[])
   rclcpp::shutdown();
   return 0;
 }
+```
+
+#### 3.1.3 Boiler Plate Code in package files
+
+In order to be able to run the nodes of the package we will first need to add some code to the two package files ``package.xml`` and ``CMakeLists.txt``.
+
+**package.xml**
+
+```xml
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <!-- Package name must match the project name given in CMakeLists.txt -->
+  <name>multi_robot_cpp_publisher_package</name>
+  <version>1.0.0</version>
+  <description>Package for Multi Robot CPP Publishers</description>
+  <maintainer email="teju81@gmail.com">Raviteja U.</maintainer>
+  <license>Apache-2.0</license>
+  <author email="teju81@gmail.com">Raviteja U.</author>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+
+  <build_depend>rclcpp</build_depend>
+  <build_depend>std_msgs</build_depend>
+
+  <exec_depend>rclcpp</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+
+  <test_depend>ament_lint_auto</test_depend>
+  <test_depend>ament_lint_common</test_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>
+```
+
+**CMakeLists.txt**
+
+```cmake
+cmake_minimum_required(VERSION 3.8)
+# Project name given must match the package name in package.xml
+project(multi_robot_cpp_publisher_package)
+
+# Default to C++17
+if(NOT CMAKE_CXX_STANDARD)
+  set(CMAKE_CXX_STANDARD 17)
+  set(CMAKE_CXX_STANDARD_REQUIRED ON)
+endif()
+
+if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+  add_compile_options(-Wall -Wextra -Wpedantic)
+endif()
+
+# Find Dependencies
+find_package(ament_cmake REQUIRED)
+find_package(rclcpp REQUIRED)
+find_package(std_msgs REQUIRED)
+
+
+# Add Executables
+add_executable(talker src/multi_robot_publisher.cpp)
+ament_target_dependencies(talker rclcpp std_msgs)
+
+add_executable(listener src/multi_robot_subscriber.cpp)
+ament_target_dependencies(listener rclcpp std_msgs)
+
+install(TARGETS
+  talker
+  listener
+  DESTINATION lib/${PROJECT_NAME}
+)
+
+if(BUILD_TESTING)
+  find_package(ament_lint_auto REQUIRED)
+  # the following line skips the linter which checks for copyrights
+  # comment the line when a copyright and license is added to all source files
+  set(ament_cmake_copyright_FOUND TRUE)
+  # the following line skips cpplint (only works in a git repo)
+  # comment the line when this package is in a git repo and when
+  # a copyright and license is added to all source files
+  set(ament_cmake_cpplint_FOUND TRUE)
+  ament_lint_auto_find_test_dependencies()
+endif()
+
+ament_package()
+
 ```
 
 ### 3.2 Writing a simple publisher and subscriber in Python
