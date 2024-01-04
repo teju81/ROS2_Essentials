@@ -267,7 +267,7 @@ int main(int argc, char * argv[])
 
 #### 3.1.2 Subscriber
 
-Below is the code for a minimal subscriber.
+Below is the code for a minimal subscriber. Note the ``#include "rclcpp/rclcpp.hpp"`` and ``#include "std_msgs/msg/string.hpp"`` dependencies being added at the beginning of the program. These dependencies will need to be added to the ``package.xml`` file as build dependencies and executable dependencies (look at the ``package.xml`` file here and compare and contrast it with the barebones ``package.xml`` shown earlier in this tutorial).
 
 ```c++
 #include <memory>
@@ -310,7 +310,9 @@ In order to be able to run the nodes of the package we will first need to add so
 
 **package.xml**
 
-```xml
+The highlighted section of the code is what needs to be added to a barebones ``package.xml``. More specifically, the lines with tags ``<build_depend>`` and ``<exec_depend>``.
+
+```
 <?xml version="1.0"?>
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
@@ -323,14 +325,15 @@ In order to be able to run the nodes of the package we will first need to add so
   <author email="teju81@gmail.com">Raviteja U.</author>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
-
-
+```
+```xml
   <build_depend>rclcpp</build_depend>
   <build_depend>std_msgs</build_depend>
 
   <exec_depend>rclcpp</exec_depend>
   <exec_depend>std_msgs</exec_depend>
-
+```
+```
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>
 
@@ -342,7 +345,9 @@ In order to be able to run the nodes of the package we will first need to add so
 
 **CMakeLists.txt**
 
-```cmake
+Note the highlighted code section. The dependencies associated with the publisher and subscriber implementations are added as ``find_package(<package_name>)``. The executables associated with the nodes of the package are then added. The executable for the publisher ``multi_robot_publisher.cpp`` is called ``talker``. Similarly, The executable for the subscriber ``multi_robot_subscriber.cpp`` is called ``listener``. Note that the executables are mentioned in several places within the file.
+
+```
 cmake_minimum_required(VERSION 3.8)
 # Project name given must match the package name in package.xml
 project(multi_robot_cpp_publisher_package)
@@ -359,11 +364,14 @@ endif()
 
 # Find Dependencies
 find_package(ament_cmake REQUIRED)
+```
+```cmake
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
 
 
 # Add Executables
+
 add_executable(talker src/multi_robot_publisher.cpp)
 ament_target_dependencies(talker rclcpp std_msgs)
 
@@ -375,7 +383,8 @@ install(TARGETS
   listener
   DESTINATION lib/${PROJECT_NAME}
 )
-
+```
+```
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
   # the following line skips the linter which checks for copyrights
@@ -389,7 +398,6 @@ if(BUILD_TESTING)
 endif()
 
 ament_package()
-
 ```
 
 ### 3.2 Writing a simple publisher and subscriber in Python
