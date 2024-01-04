@@ -1,4 +1,4 @@
-# ROS2_Essentials
+# ROS2 101
 
 
 This repository will serve as a quick tutorial/recap and also template for your awesome robotics software projects that will be based on ROS2. I am using ROS2 Iron on Ubuntu 22.04 at the time of making this tutorial.
