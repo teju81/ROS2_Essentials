@@ -3,8 +3,48 @@
 
 This repository will serve as a quick tutorial/recap and also template for your awesome robotics software projects that will be based on ROS2. I am using ROS2 Iron on Ubuntu 22.04 at the time of making this tutorial.
 
+## 1 Concepts
 
-## 1 Create Workspace
+
+ROS applications typically communicate through interfaces of one of three types: topics, services, or actions. ROS 2 uses a simplified description language, the interface definition language (IDL), to describe these interfaces. This description makes it easy for ROS tools to automatically generate source code for the interface type in several target languages.
+
+
+### 1.1 Nodes and Discovery
+
+Nodes exchange information between each other. They are the unit of computation in ROS and each node should be designed to perform one logical thing. There are three types of nodes
+
+1. Topics
+2. Services
+3. Actions
+
+Nodes advertise their presence to other nodes on the network with the same ROS domain ID. Nodes will only establish connections with other nodes if they have compatible Quality of Service settings.
+
+### 1.2 Interfaces
+
+Each node (whether topics, services, or actions) is associated with (or described by) an interface (either custom or predefined). ROS 2 uses a simplified description language, the interface definition language (IDL), to describe these interfaces. This description makes it easy for ROS tools to automatically generate source code for the interface type in several target languages.
+
+There are three types of interfaces:
+- msg: ``.msg`` files are simple text files that describe the fields of a ROS message. They are used to generate source code for messages in different languages. They are associated with topics.
+- srv: ``.srv`` files describe a service. They are composed of two parts: a request and a response. The request and response are message declarations.
+- action: ``.action`` files describe actions. They are composed of three parts: a goal, a result, and feedback. Each part is a message declaration itself.
+
+
+### 1.3 Topics
+
+A publish/subscribe system is one in which there are producers of data (publishers) and consumers of data (subscribers). The publishers and subscribers know how to contact each other through the concept of a “topic”, which is a common name so that the entites can find each other. For instance, when you create a publisher, you must also give it a string that is the name of the topic; the same goes for the subscriber. Any publishers and subscribers that are on the same topic name can directly communicate with each other. There may be zero or more publishers and zero or more subscribers on any particular topic. When data is published to the topic by any of the publishers, all subscribers in the system will receive the data. This system is also known as a “bus”, since it somewhat resembles a device bus from electrical engineering. This concept of a bus is part of what makes ROS 2 a powerful and flexible system.
+
+Topics should be used for continuous data streams (not necessarily at a constant rate??), like sensor data, robot state, etc.
+
+Note: ROS 2 is “anonymous”. This means that when a subscriber gets a piece of data, it doesn’t generally know or care which publisher originally sent it (though it can find out if it wants).
+
+### 1.4 Services
+
+### 1.5 Actions
+
+
+## 2 Template for Multi Robot ROS2 Software
+
+## 2.1 Create Workspace
 
 Run the following commands to create your workspace
 ```
@@ -27,9 +67,9 @@ source install/setup.bash
 ```
 it is very important that you open a new terminal, separate from the one where you built the workspace. Sourcing an overlay in the same terminal where you built, or likewise building where an overlay is sourced, may create complex issues.
 
-## 2 Packages
+## 2.2 Packages
 
-### 2.1 Creating a Package
+### 2.2.1 Creating a Package
 
 Make sure you are in the src folder before running the package creation command
 
@@ -52,11 +92,11 @@ ros2 pkg create --build-type ament_python --license Apache-2.0 <package_name>
 You will now have a new folder within your workspace’s ``src`` directory called ``my_package``.
 </br>
 
-### 2.2 Structure of a Package
+### 2.2.2 Structure of a Package
 
 Packages can be written in C++ or Python. For setup, each type requires some boiler plate code and structure to be followed.
 
-#### 2.2.1 C++ Package
+#### 2.2.2.1 C++ Package
 
 The simplest possible CPP package may have a file structure that looks like:
 
@@ -155,7 +195,7 @@ ament_package()
 
 </details></br>
 
-#### 2.2.2 Python Package
+#### 2.2.2.2 Python Package
 
 The simplest possible python package may have a file structure that looks like:
 
@@ -267,13 +307,13 @@ workspace_folder/
 ```
 </br>
 
-## 3 Publishers and Subscribers
+## 2.3 Publishers and Subscribers
 
 Nodes are executable processes that communicate over the ROS graph. In this tutorial, the nodes will pass information in the form of string messages to each other over a topic. The example used here is a simple “talker” and “listener” system; one node publishes data and the other subscribes to the topic so it can receive that data.
 
-### 3.1 Writing a simple publisher and subscriber in C++
+### 2.3.1 Writing a simple publisher and subscriber in C++
 
-#### 3.1.1 Publisher
+#### 2.3.1.1 Publisher
 
 Below is the code for a minimal publisher.
 
@@ -345,7 +385,7 @@ int main(int argc, char * argv[])
 ```
 </details></br>
 
-#### 3.1.2 Subscriber
+#### 2.3.1.2 Subscriber
 
 Below is the code for a minimal subscriber. Note the ``#include "rclcpp/rclcpp.hpp"`` and ``#include "std_msgs/msg/string.hpp"`` dependencies being added at the beginning of the program. These dependencies will need to be added to the ``package.xml`` file as build dependencies and executable dependencies (look at the ``package.xml`` file here and compare and contrast it with the barebones ``package.xml`` shown earlier in this tutorial).
 
@@ -390,7 +430,7 @@ int main(int argc, char * argv[])
 ```
 </details></br>
 
-#### 3.1.3 Boiler Plate Code in package files
+#### 2.3.1.3 Boiler Plate Code in package files
 
 In order to be able to run the nodes of the package we will first need to add some code to the two package files ``package.xml`` and ``CMakeLists.txt``.
 
@@ -501,7 +541,7 @@ ament_package()
 
 
 
-### 3.2 Writing a simple publisher and subscriber in Python
+### 2.3.2 Writing a simple publisher and subscriber in Python
 
 **Publisher**
 
@@ -677,14 +717,14 @@ setup(
 
 </details></br>
 
-### 3.3 Remarks on Publishers and Subscribers
+### 2.3.3 Remarks on Publishers and Subscribers
 
 - One can run have a python publisher and C++ subscriber (and vice versa).
 - There are options one can pass onto while creating a publisher or subscriber. Would be a good idea to experiment with these options at some point. Some example code exists in [2].
 - Setting the QoS parameters is the main goal. Look at the code in [3].
   
 
-## 4 Interfaces
+## 2.4 Interfaces
 
 Interfaces need to be defined as a package and you need to make sure you are defining it alongside all the other packages already defined. make sure you are in the same workspace as those packages ``multi_robot_ws/src``, and then run the following command to create a new package:
 
@@ -694,13 +734,13 @@ The .msg, .srv and .action files are required to be placed in directories called
 
 ``mkdir msg srv action``
 
-### 4.1 Messages
+### 2.4.1 Messages
 
 - create Num.msg and Sphere.msg
 - create MultiRobotMessage.msg
 
 
-### 4.1.2 Field Types
+### 2.4.1.2 Field Types
 
 
 | Type Name | C++            | Python          | DDS Type           |
@@ -747,13 +787,13 @@ string<=10[<=5] up_to_five_strings_up_to_ten_characters_each
 ```
 
 
-#### 4.1.3 Field Names
+#### 2.4.1.3 Field Names
 
 - Field names must be lowercase alphanumeric characters with underscores for separating words.
 - Field names must start with an alphabetic character, and they must not end with an underscore or have two consecutive underscores.
 
 
-#### 4.1.4 Field Default Values
+#### 2.4.1.4 Field Default Values
 
 Defining a default value is done by adding a third element to the field definition line, i.e:
 
@@ -771,11 +811,14 @@ string full_name "John Doe"
 int32[] samples [-200, -100, 0, 100, 200]
 ```
 
-#### 4.1.6 Constants
+#### 2.4.1.5 Constants
 
 Each constant definition is like a field description with a default value, except that this value can never be changed programatically. This value assignment is indicated by use of an equal ‘=’ sign, e.g.
 
 ``constanttype CONSTANTNAME=constantvalue``
+
+Note: Constants names have to be UPPERCASE
+
 
 For example:
 
@@ -786,27 +829,27 @@ string FOO="foo"
 string EXAMPLE='bar'
 ```
 
-#### 4.1.7 Remarks on Messages
+#### 2.4.1.6 Remarks on Messages
 
 - One needs to define custom messages in .msg files and place them in the msg directory
 - One can define multiple custom messages, each in its own .msg file
 - One can define custom messages based off other previously defined custom messages (usually existing example ROS2 interfaces)
 
 
-### 4.2 Services
+### 2.5 Services
 
 - create MultiRobotService.srv
 - Requests service by providing 3 int64 inputs a, b, c and service responds with int64 sum
 
 
-#### 4.2.1 Remarks on Services
+#### 2.5.1 Remarks on Services
 
 - One needs to define custom messages in .msg files and place them in the msg directory
 - One can define multiple custom messages, each in its own .msg file
 - One can define custom messages based off other previously defined custom messages (usually existing example ROS2 interfaces)
 
 
-### 4.3 CMakeLists.txt
+### 2.5.2 CMakeLists.txt
 
 
 
@@ -827,7 +870,8 @@ To be done
 
 ## 7 References
 
-1. ROS2 Iron getting started
+1. ROS2 Iron getting started Tutorials
 2. Github ROS2 examples in iron branch
 3. Differential QoS Thesis
+4. ROS2 Iron Concepts
 
