@@ -3,10 +3,15 @@
 
 This repository will serve as a quick tutorial/recap and also template for your awesome robotics software projects that will be based on ROS2. I am using ROS2 Iron on Ubuntu 22.04 at the time of making this tutorial.
 
-## 1 Concepts
+## 1 ROS2 Concepts
+
+<details>
 
 
 ROS applications typically communicate through interfaces of one of three types: topics, services, or actions. ROS 2 uses a simplified description language, the interface definition language (IDL), to describe these interfaces. This description makes it easy for ROS tools to automatically generate source code for the interface type in several target languages.
+
+
+<summary> Details of ROS2 Concepts </summary>
 
 
 ### 1.1 Nodes and Discovery
@@ -62,6 +67,7 @@ Parameters in ROS 2 are associated with individual nodes. Parameters are used to
 
 **To be completed**
 
+</details>
 
 ## 2 Template for Multi Robot ROS2 Software
 
