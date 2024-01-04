@@ -103,11 +103,14 @@ The barebones ``package.xml`` will look like this
 
 The barebones ``CMakeLists.txt`` will look like this
 
-```cmake
+```
 cmake_minimum_required(VERSION 3.8)
+```
+```cmake
 # Project name given must match the package name in package.xml
 project(multi_robot_cpp_publisher_package)
-
+```
+```
 # Default to C++17
 if(NOT CMAKE_CXX_STANDARD)
   set(CMAKE_CXX_STANDARD 17)
@@ -120,17 +123,16 @@ endif()
 
 # Find Dependencies: More package specific dependencies can be added below the next line
 find_package(ament_cmake REQUIRED)
-
+```
+```cmake
 
 # Add Executables: More package specific executables can be added below. More info on this section will come later in this tutorial.
 
-
 install(TARGETS
-  talker
-  listener
   DESTINATION lib/${PROJECT_NAME}
 )
-
+```
+```
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
   # the following line skips the linter which checks for copyrights
@@ -144,7 +146,6 @@ if(BUILD_TESTING)
 endif()
 
 ament_package()
-
 ```
 
 #### 2.2.2 Python Package
@@ -312,6 +313,11 @@ In order to be able to run the nodes of the package we will first need to add so
 
 The highlighted section of the code is what needs to be added to a barebones ``package.xml``. More specifically, the lines with tags ``<build_depend>`` and ``<exec_depend>``.
 
+<details>
+
+<summary>package.xml File</summary>
+
+
 ```
 <?xml version="1.0"?>
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
@@ -342,10 +348,15 @@ The highlighted section of the code is what needs to be added to a barebones ``p
   </export>
 </package>
 ```
+</details>
 
 **CMakeLists.txt**
 
 Note the highlighted code section. The dependencies associated with the publisher and subscriber implementations are added as ``find_package(<package_name>)``. The executables associated with the nodes of the package are then added. The executable for the publisher ``multi_robot_publisher.cpp`` is called ``talker``. Similarly, The executable for the subscriber ``multi_robot_subscriber.cpp`` is called ``listener``. Note that the executables are mentioned in several places within the file.
+
+<details>
+
+<summary>CMakeLists.txt File</summary>
 
 ```
 cmake_minimum_required(VERSION 3.8)
@@ -399,6 +410,7 @@ endif()
 
 ament_package()
 ```
+</details>
 
 ### 3.2 Writing a simple publisher and subscriber in Python
 
