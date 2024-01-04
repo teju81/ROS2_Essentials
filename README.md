@@ -27,20 +27,20 @@ workspace_folder/\
       cpp_package_1/\
           CMakeLists.txt\
           include/cpp_package_1/\
-          package.xml</br>
-          src/</br>
-      py_package_1/
-          package.xml
-          resource/py_package_1
-          setup.cfg
-          setup.py
-          py_package_1/
-      ...
-      cpp_package_n/
-          CMakeLists.txt
-          include/cpp_package_n/
-          package.xml
-          src/
+          package.xml\
+          src/\
+      py_package_1/\
+          package.xml\
+          resource/py_package_1\
+          setup.cfg\
+          setup.py\
+          py_package_1/\
+      ...\
+      cpp_package_n/\
+          CMakeLists.txt\
+          include/cpp_package_n/\
+          package.xml\
+          src/\
 
 (ii) Each src folder is a package by itself. Each package has the following structure
   - package folder
