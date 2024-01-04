@@ -197,6 +197,9 @@ Nodes are executable processes that communicate over the ROS graph. In this tuto
 ### 3.1 Writing a simple publisher and subscriber in C++
 
 **Publisher**
+
+Below is the code for a minimal publisher.
+
 ```
 // Copyright 2016 Open Source Robotics Foundation, Inc.
 //
@@ -260,6 +263,8 @@ int main(int argc, char * argv[])
 ```
 
 **Subscriber**
+
+Below is the code for a minimal subscriber.
 
 ```
 #include <memory>
