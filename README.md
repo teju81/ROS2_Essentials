@@ -690,6 +690,9 @@ Interfaces need to be defined as a package and you need to make sure you are def
 
 ``ros2 pkg create --build-type ament_cmake --license Apache-2.0 multi_robot_interfaces``
 
+The .msg, .srv and .action files are required to be placed in directories called msg, srv and action, respectively. Create the directories in ``multi_robot_ws/src/multi_robot_interfaces``:
+
+``mkdir msg srv``
 
 Remarks:
 
