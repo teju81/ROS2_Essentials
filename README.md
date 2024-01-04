@@ -33,7 +33,7 @@ Run the following commands to create your workspace
 
 (iii) From the root folder <ros2_ws> run the following commands
 - colcon build
-- . install/setup.bash
+- . <note the space> install/setup.bash
 - ros2 run <package_name> <node_executable_name>
 
 
