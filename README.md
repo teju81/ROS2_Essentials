@@ -9,9 +9,6 @@ This repository will serve as a quick tutorial/recap and also template for your 
 Run the following commands to create your workspace
 ```
 mkdir -p ~/ros2_ws/src
-```
-
-```
 cd <ros2_ws>
 colcon build
 ```
@@ -30,7 +27,7 @@ source install/setup.bash
 ```
 it is very important that you open a new terminal, separate from the one where you built the workspace. Sourcing an overlay in the same terminal where you built, or likewise building where an overlay is sourced, may create complex issues.
 
-
+**Package Structure**
 The simplest possible CPP package may have a file structure that looks like:
 
 ```
