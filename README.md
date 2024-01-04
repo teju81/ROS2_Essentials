@@ -686,6 +686,13 @@ setup(
 
 ## 4 Interfaces
 
+Interfaces need to be defined as a package and you need to make sure you are defining it alongside all the other packages already defined. make sure you are in the same workspace as those packages ``multi_robot_ws/src``, and then run the following command to create a new package:
+
+``ros2 pkg create --build-type ament_cmake --license Apache-2.0 multi_robot_interfaces``
+
+
+Remarks:
+
 - Definitions for custom messages, services and actions
 - Note that interfaces can only be a CMake package, but this doesn’t restrict in which type of packages you can use your messages and services. You can create your own custom interfaces in a CMake package, and then use it in a C++ or Python node.
 
