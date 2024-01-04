@@ -7,8 +7,29 @@ This repository will serve as a quick tutorial/recap and also template for your 
 **1. Create Workspace**
 
 Run the following commands to create your workspace
-- mkdir -p ~/ros2_ws/src
-- cd <ros2_ws>/src
+```
+mkdir -p ~/ros2_ws/src
+```
+
+```
+cd <ros2_ws>
+colcon build
+```
+
+And you will see that colcon has created new directories:
+
+```
+build  install  log  src
+```
+The install directory is where your workspace’s setup files are, which you can use to source your overlay.
+
+
+Open a new terminal and run the following command
+```
+source install/setup.bash
+```
+it is very important that you open a new terminal, separate from the one where you built the workspace. Sourcing an overlay in the same terminal where you built, or likewise building where an overlay is sourced, may create complex issues.
+
 
 The simplest possible CPP package may have a file structure that looks like:
 
