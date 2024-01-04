@@ -106,6 +106,7 @@ You will now have a new folder within your workspace’s ``src`` directory calle
 
 
 **Publisher and Subscriber to Topics**
+     
      1. minimal subscriber and publisher
      2. some others....
 
