@@ -677,6 +677,23 @@ setup(
 
 </details></br>
 
+### 3.3 Remarks on Publishers and Subscribers
+
+- One can run have a python publisher and C++ subscriber (and vice versa).
+- There are options one can pass onto while creating a publisher or subscriber. Would be a good idea to experiment with these options at some point. Some example code exists in [2].
+- Setting the QoS parameters is the main goal. Look at the code in [3].
+  
+
+
+
 4. Services
 5. Custom Messages
 6. Action Servers
+
+
+## 7 References
+
+1. ROS2 Iron getting started
+2. Github ROS2 examples in iron branch
+3. Differential QoS Thesis
+
