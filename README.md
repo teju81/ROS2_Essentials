@@ -21,6 +21,7 @@ Run the following commands to create your workspace
       .
       .
       - src n
+
 workspace_folder/
     src/
       cpp_package_1/
