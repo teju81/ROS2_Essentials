@@ -10,9 +10,6 @@ Run the following commands to create your workspace
 - mkdir -p ~/ros2_ws/src
 - cd <ros2_ws>/src
 
-
-2. Create a Package
-
 The simplest possible CPP package may have a file structure that looks like:
 
 ```
@@ -65,12 +62,22 @@ workspace_folder/
             package.xml
             src/
 ```
-(ii) Each src folder is a package by itself. Each package has the following structure
-  - package folder
-    - include
-    - src
-    - package.xml
-    - CMakeLists.txt
+
+2. Create a Package
+
+Make sure you are in the src folder before running the package creation command
+
+```
+cd ~/ros2_ws/src
+```
+```
+ros2 pkg create --build-type ament_cmake --license Apache-2.0 <package_name>
+```
+
+```
+ros2 pkg create --build-type ament_python --license Apache-2.0 <package_name>
+```
+
 
 
 (iii) From the root folder <ros2_ws> run the following commands
