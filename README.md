@@ -13,14 +13,14 @@ Run the following commands to create your workspace
 
 2. Create a Package
 
-(i) Your overall package structure should be like
-  - <ros2_ws>/src
-      - src 1
-      - src 2
-      .
-      .
-      .
-      - src n
+A single workspace can contain as many packages as you want, each in their own folder.
+You can also have packages of different build types in one workspace (CMake, Python, etc.).
+You cannot have nested packages.
+
+Best practice is to have a ``src`` folder within your workspace, and to create your packages in there.
+This keeps the top level of the workspace “clean”.
+
+A trivial workspace might look like:
 
 .. code-block:: console
 
