@@ -50,7 +50,7 @@ ros2 pkg create --build-type ament_python --license Apache-2.0 <package_name>
 ```
 
 You will now have a new folder within your workspace’s ``src`` directory called ``my_package``.
-
+</br>
 
 ### 2.2 Structure of a Package
 
@@ -69,9 +69,10 @@ my_package/
 ```
 The ``src`` folder will contain the source code that implements ROS nodes such as a publishers, subscribers, custom messages, services, action servers etc (more on these implementation details later). The ``include`` folder will contain any header files that is required. In addition to the code, two files ``package.xml`` and ``CMakeLists.txt`` need to be setup properly to be able to run the ROS nodes in the package.
 
-**package.xml**
 
-The barebones ``package.xml`` will look like this
+<details>
+
+<summary>Barebones package.xml File</summary>
 
 ```xml
 <?xml version="1.0"?>
@@ -98,16 +99,20 @@ The barebones ``package.xml`` will look like this
   </export>
 </package>
 ```
+</details>
 
-**CMakeLists.txt**
 
-The barebones ``CMakeLists.txt`` will look like this
+
+<details>
+
+<summary>Barebones CMakeLists.txt File</summary>
 
 ```
 cmake_minimum_required(VERSION 3.8)
 ```
 ```cmake
 # Project name given must match the package name in package.xml
+
 project(multi_robot_cpp_publisher_package)
 ```
 ```
@@ -147,6 +152,8 @@ endif()
 
 ament_package()
 ```
+
+</details></br>
 
 #### 2.2.2 Python Package
 
@@ -192,7 +199,7 @@ workspace_folder/
             package.xml
             src/
 ```
-
+</br>
 
 ## 3 Publishers and Subscribers
 
@@ -203,6 +210,11 @@ Nodes are executable processes that communicate over the ROS graph. In this tuto
 #### 3.1.1 Publisher
 
 Below is the code for a minimal publisher.
+
+
+<details>
+
+<summary>C++ Publisher Code</summary>
 
 ```c++
 // Copyright 2016 Open Source Robotics Foundation, Inc.
@@ -265,10 +277,16 @@ int main(int argc, char * argv[])
   return 0;
 }
 ```
+</details></br>
 
 #### 3.1.2 Subscriber
 
 Below is the code for a minimal subscriber. Note the ``#include "rclcpp/rclcpp.hpp"`` and ``#include "std_msgs/msg/string.hpp"`` dependencies being added at the beginning of the program. These dependencies will need to be added to the ``package.xml`` file as build dependencies and executable dependencies (look at the ``package.xml`` file here and compare and contrast it with the barebones ``package.xml`` shown earlier in this tutorial).
+
+
+<details>
+
+<summary>C++ Subscriber Code</summary>
 
 ```c++
 #include <memory>
@@ -304,6 +322,7 @@ int main(int argc, char * argv[])
   return 0;
 }
 ```
+</details></br>
 
 #### 3.1.3 Boiler Plate Code in package files
 
@@ -348,13 +367,15 @@ The highlighted section of the code is what needs to be added to a barebones ``p
   </export>
 </package>
 ```
-</details>
+</details></br>
 
 **CMakeLists.txt**
 
 Note the highlighted code section. The dependencies associated with the publisher and subscriber implementations are added as ``find_package(<package_name>)``. The executables associated with the nodes of the package are then added. The executable for the publisher ``multi_robot_publisher.cpp`` is called ``talker``. Similarly, The executable for the subscriber ``multi_robot_subscriber.cpp`` is called ``listener``. Note that the executables are mentioned in several places within the file.
 
 <details>
+
+
 
 <summary>CMakeLists.txt File</summary>
 
@@ -410,7 +431,9 @@ endif()
 
 ament_package()
 ```
-</details>
+</details></br>
+
+
 
 ### 3.2 Writing a simple publisher and subscriber in Python
 
