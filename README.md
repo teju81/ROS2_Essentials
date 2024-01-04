@@ -168,6 +168,72 @@ my_package/
       my_package/
 ```
 
+<details>
+
+<summary>Barebones package.xml File</summary>
+
+```xml
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <!-- Package name must match the project name given in setup.py -->
+  <name>multi_robot_py_publisher_package</name>
+  <version>1.0.0</version>
+  <description>Package for Multi Robot Py Publishers</description>
+  <maintainer email="teju81@gmail.com">Raviteja U.</maintainer>
+  <license>Apache-2.0</license>
+  <author email="teju81@gmail.com">Raviteja U.</author>
+
+<!-- executable dependancies needs to be declared over here -->
+
+  <test_depend>ament_copyright</test_depend>
+  <test_depend>ament_flake8</test_depend>
+  <test_depend>ament_pep257</test_depend>
+  <test_depend>python3-pytest</test_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>
+```
+</details>
+
+
+
+<details>
+
+<summary>Barebones setup.py File</summary>
+
+```python
+from setuptools import find_packages, setup
+
+package_name = 'multi_robot_py_publisher_package'
+
+setup(
+    name=package_name,
+    version='1.0.0',
+    packages=find_packages(exclude=['test']),
+    data_files=[
+        ('share/ament_index/resource_index/packages',
+            ['resource/' + package_name]),
+        ('share/' + package_name, ['package.xml']),
+    ],
+    install_requires=['setuptools'],
+    zip_safe=True,
+    maintainer='Raviteja U.',
+    maintainer_email='teju81@gmail.com',
+    description='Package for Multi Robot Py Publishers',
+    license='Apache-2.0',
+    tests_require=['pytest'],
+    entry_points={
+        'console_scripts': [
+        ],
+    },
+)
+```
+
+</details></br>
+
 A single workspace can contain as many packages as you want, each in their own folder.
 You can also have packages of different build types in one workspace (CMake, Python, etc.).
 You cannot have nested packages.
@@ -547,7 +613,7 @@ if __name__ == '__main__':
 <?xml version="1.0"?>
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
-  <!-- Package name must match the project name given in CMakeLists.txt -->
+  <!-- Package name must match the project name given in setup.py -->
   <name>multi_robot_py_publisher_package</name>
   <version>1.0.0</version>
   <description>Package for Multi Robot Py Publishers</description>
