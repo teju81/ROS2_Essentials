@@ -694,6 +694,109 @@ The .msg, .srv and .action files are required to be placed in directories called
 
 ``mkdir msg srv action``
 
+### 4.1 Messages
+
+- create Num.msg and Sphere.msg
+- create MultiRobotMessage.msg
+
+
+### 4.1.2 Field Types
+
+
+| Type Name | C++            | Python          | DDS Type           |
+| :-------- | :----------:   | ------------:   |  ---------------:  |
+| bool      | bool           | builtins.bool   | boolean            |
+| byte      | uint8_t        | builtins.bytes* | octet              |
+| char      | char           | builtins.str*   | char               |
+| float32   | float          | builtins.float* | float              |
+| int8      | int8_t         | builtins.int*   | octet              |
+| uint8     | uint8_t        | builtins.int*   | octet              |
+| int16     | int16_t        | builtins.int*   | short              |
+| uint16    | uint16_t       | builtins.int*   | unsigned short     |
+| int32     | int32_t        | builtins.int*   | long               |
+| uint32    | uint32_t       | builtins.int*   | unsigned long      |
+| int64     | int64_t        | builtins.int*   | long long          |
+| uint64    | uint64_t       | builtins.int*   | unsigned long long |
+| string    | std::string    | builtins.str    | string             |
+| wstring   | std::u16string | builtins.str    | wstring            |
+
+
+Every built-in-type can be used to define arrays:
+
+
+| Type Name                | C++                | Python         | DDS Type       |
+| :------------------------| :--------------:   | ----:          | ------------:  |
+| static array             | std::array<T, N>   | builtins.list* | T[N]           |
+| unbounded dynamic array  | std::vector        | builtins.list  | sequence       |
+| bounded dynamic array    | custom_class<T, N> | builtins.list* | sequence<T,N>  |
+| bounded string           | std::string        | builtins.str*  | string         |
+
+Example of message definition using arrays and bounded types:
+
+```
+int32[] unbounded_integer_array
+int32[5] five_integers_array
+int32[<=5] up_to_five_integers_array
+
+string string_of_unbounded_size
+string<=10 up_to_ten_characters_string
+
+string[<=5] up_to_five_unbounded_strings
+string<=10[] unbounded_array_of_strings_up_to_ten_characters_each
+string<=10[<=5] up_to_five_strings_up_to_ten_characters_each
+```
+
+
+#### 4.1.3 Field Names
+
+- Field names must be lowercase alphanumeric characters with underscores for separating words.
+- Field names must start with an alphabetic character, and they must not end with an underscore or have two consecutive underscores.
+
+
+#### 4.1.4 Field Default Values
+
+Defining a default value is done by adding a third element to the field definition line, i.e:
+
+
+``fieldtype fieldname fielddefaultvalue``
+
+
+For example:
+
+
+```
+uint8 x 42
+int16 y -2000
+string full_name "John Doe"
+int32[] samples [-200, -100, 0, 100, 200]
+```
+
+
+#### 4.1.5 Remarks on Messages
+
+- One needs to define custom messages in .msg files and place them in the msg directory
+- One can define multiple custom messages, each in its own .msg file
+- One can define custom messages based off other previously defined custom messages (usually existing example ROS2 interfaces)
+
+
+### 4.2 Services
+
+- create MultiRobotService.srv
+- Requests service by providing 3 int64 inputs a, b, c and service responds with int64 sum
+
+
+#### 4.2.1 Remarks on Services
+
+- One needs to define custom messages in .msg files and place them in the msg directory
+- One can define multiple custom messages, each in its own .msg file
+- One can define custom messages based off other previously defined custom messages (usually existing example ROS2 interfaces)
+
+
+### 4.3 CMakeLists.txt
+
+
+
+
 Remarks:
 
 - Definitions for custom messages, services and actions
