@@ -13,19 +13,13 @@ This repository will serve as a quick tutorial/recap and also template for your 
 2. Create a Package
 - Your package structure will be like
   
-  <ros2_ws>/src
-
-    . src 1
-
-    . src 2
-
+  - <ros2_ws>/src
+      - src 1
+      - src 2
       .
-
       .
-
       .
-
-    . src n
+      - src n
 
 Each src folder is a package by itself
 
