@@ -22,7 +22,7 @@ This keeps the top level of the workspace “clean”.
 
 A trivial workspace might look like:
 
-.. code-block:: console
+'''
 
   workspace_folder/
       src/
@@ -44,7 +44,7 @@ A trivial workspace might look like:
             include/cpp_package_n/
             package.xml
             src/
-
+'''
 (ii) Each src folder is a package by itself. Each package has the following structure
   - package folder
     - include
