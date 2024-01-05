@@ -1,7 +1,13 @@
 # ROS2 101
 
 
-This repository will serve as a quick tutorial/recap and also template for your awesome robotics software projects that will be based on ROS2. I am using ROS2 Iron on Ubuntu 22.04 at the time of making this tutorial.
+This repository will serve as a quick tutorial/recap and also template for your awesome robotics software projects that will be based on ROS2. I am using ROS2 Iron on Ubuntu 22.04 at the time of making this tutorial. I find that the tutorial on ROS2 website is not very clear and also well organized. This is my attempt to try and rectify this.
+
+**Note**
+
+- This tutorial is incomplete and needs to be reworked. This is not yet a replacement for the tutorial on the ROS2 website.
+- Defining a custom interface as a package and using it in a seperate package where a topic or service uses it needs to be worked out.
+
 
 ## 1 ROS2 Concepts
 
@@ -32,6 +38,96 @@ There are three types of interfaces:
 - msg: ``.msg`` files are simple text files that describe the fields of a ROS message. They are used to generate source code for messages in different languages. They are associated with topics.
 - srv: ``.srv`` files describe a service. They are composed of two parts: a request and a response. The request and response are message declarations.
 - action: ``.action`` files describe actions. They are composed of three parts: a goal, a result, and feedback. Each part is a message declaration itself.
+
+
+### 1.2.1 Field Types
+
+
+| Type Name | C++            | Python          | DDS Type           |
+| :-------- | :----------:   | ------------:   |  ---------------:  |
+| bool      | bool           | builtins.bool   | boolean            |
+| byte      | uint8_t        | builtins.bytes* | octet              |
+| char      | char           | builtins.str*   | char               |
+| float32   | float          | builtins.float* | float              |
+| int8      | int8_t         | builtins.int*   | octet              |
+| uint8     | uint8_t        | builtins.int*   | octet              |
+| int16     | int16_t        | builtins.int*   | short              |
+| uint16    | uint16_t       | builtins.int*   | unsigned short     |
+| int32     | int32_t        | builtins.int*   | long               |
+| uint32    | uint32_t       | builtins.int*   | unsigned long      |
+| int64     | int64_t        | builtins.int*   | long long          |
+| uint64    | uint64_t       | builtins.int*   | unsigned long long |
+| string    | std::string    | builtins.str    | string             |
+| wstring   | std::u16string | builtins.str    | wstring            |
+
+
+Every built-in-type can be used to define arrays:
+
+
+| Type Name                | C++                | Python         | DDS Type       |
+| :------------------------| :--------------:   | ----:          | ------------:  |
+| static array             | std::array<T, N>   | builtins.list* | T[N]           |
+| unbounded dynamic array  | std::vector        | builtins.list  | sequence       |
+| bounded dynamic array    | custom_class<T, N> | builtins.list* | sequence<T,N>  |
+| bounded string           | std::string        | builtins.str*  | string         |
+
+Example of message definition using arrays and bounded types:
+
+```
+int32[] unbounded_integer_array
+int32[5] five_integers_array
+int32[<=5] up_to_five_integers_array
+
+string string_of_unbounded_size
+string<=10 up_to_ten_characters_string
+
+string[<=5] up_to_five_unbounded_strings
+string<=10[] unbounded_array_of_strings_up_to_ten_characters_each
+string<=10[<=5] up_to_five_strings_up_to_ten_characters_each
+```
+
+
+#### 1.2.2 Field Names
+
+- Field names must be lowercase alphanumeric characters with underscores for separating words.
+- Field names must start with an alphabetic character, and they must not end with an underscore or have two consecutive underscores.
+
+
+#### 1.2.3 Field Default Values
+
+Defining a default value is done by adding a third element to the field definition line, i.e:
+
+
+``fieldtype fieldname fielddefaultvalue``
+
+
+For example:
+
+
+```
+uint8 x 42
+int16 y -2000
+string full_name "John Doe"
+int32[] samples [-200, -100, 0, 100, 200]
+```
+
+#### 1.2.4 Constants
+
+Each constant definition is like a field description with a default value, except that this value can never be changed programatically. This value assignment is indicated by use of an equal ‘=’ sign, e.g.
+
+``constanttype CONSTANTNAME=constantvalue``
+
+Note: Constants names have to be UPPERCASE
+
+
+For example:
+
+```
+int32 X=123
+int32 Y=-123
+string FOO="foo"
+string EXAMPLE='bar'
+```
 
 
 ### 1.3 Topics
@@ -334,13 +430,37 @@ workspace_folder/
 ```
 </br>
 
-## 2.3 Publishers and Subscribers
+
+## 2.3 Interfaces
+
+Interfaces need to be defined as a package and you need to make sure you are defining it alongside all the other packages already defined. make sure you are in the same workspace as those packages ``multi_robot_ws/src``, and then run the following command to create a new package:
+
+``ros2 pkg create --build-type ament_cmake --license Apache-2.0 multi_robot_interfaces``
+
+The .msg, .srv and .action files are required to be placed in directories called msg, srv and action, respectively. Create the directories in ``multi_robot_ws/src/multi_robot_interfaces``:
+
+``mkdir msg srv action``
+
+### 2.3.1 Messages
+
+- create Num.msg and Sphere.msg
+- create MultiRobotMessage.msg
+
+### 2.3.2 Remarks on Messages
+
+- One needs to define custom messages in .msg files and place them in the msg directory
+- One can define multiple custom messages, each in its own .msg file
+- One can define custom messages based off other previously defined custom messages (usually existing example ROS2 interfaces)
+
+
+
+## 2.4 Topics, Publishers and Subscribers
 
 Nodes are executable processes that communicate over the ROS graph. In this tutorial, the nodes will pass information in the form of string messages to each other over a topic. The example used here is a simple “talker” and “listener” system; one node publishes data and the other subscribes to the topic so it can receive that data.
 
-### 2.3.1 Writing a simple publisher and subscriber in C++
+### 2.4.1 Writing a simple publisher and subscriber in C++
 
-#### 2.3.1.1 Publisher
+#### 2.4.1.1 Publisher
 
 Below is the code for a minimal publisher.
 
@@ -412,7 +532,7 @@ int main(int argc, char * argv[])
 ```
 </details></br>
 
-#### 2.3.1.2 Subscriber
+#### 2.4.1.2 Subscriber
 
 Below is the code for a minimal subscriber. Note the ``#include "rclcpp/rclcpp.hpp"`` and ``#include "std_msgs/msg/string.hpp"`` dependencies being added at the beginning of the program. These dependencies will need to be added to the ``package.xml`` file as build dependencies and executable dependencies (look at the ``package.xml`` file here and compare and contrast it with the barebones ``package.xml`` shown earlier in this tutorial).
 
@@ -457,7 +577,7 @@ int main(int argc, char * argv[])
 ```
 </details></br>
 
-#### 2.3.1.3 Boiler Plate Code in package files
+#### 2.4.1.3 Boiler Plate Code in package files
 
 In order to be able to run the nodes of the package we will first need to add some code to the two package files ``package.xml`` and ``CMakeLists.txt``.
 
@@ -568,7 +688,7 @@ ament_package()
 
 
 
-### 2.3.2 Writing a simple publisher and subscriber in Python
+### 2.4.2 Writing a simple publisher and subscriber in Python
 
 **Publisher**
 
@@ -744,123 +864,11 @@ setup(
 
 </details></br>
 
-### 2.3.3 Remarks on Publishers and Subscribers
+### 2.4.3 Remarks on Publishers and Subscribers
 
 - One can run have a python publisher and C++ subscriber (and vice versa).
 - There are options one can pass onto while creating a publisher or subscriber. Would be a good idea to experiment with these options at some point. Some example code exists in [2].
 - Setting the QoS parameters is the main goal. Look at the code in [3].
-  
-
-## 2.4 Interfaces
-
-Interfaces need to be defined as a package and you need to make sure you are defining it alongside all the other packages already defined. make sure you are in the same workspace as those packages ``multi_robot_ws/src``, and then run the following command to create a new package:
-
-``ros2 pkg create --build-type ament_cmake --license Apache-2.0 multi_robot_interfaces``
-
-The .msg, .srv and .action files are required to be placed in directories called msg, srv and action, respectively. Create the directories in ``multi_robot_ws/src/multi_robot_interfaces``:
-
-``mkdir msg srv action``
-
-### 2.4.1 Messages
-
-- create Num.msg and Sphere.msg
-- create MultiRobotMessage.msg
-
-
-### 2.4.1.2 Field Types
-
-
-| Type Name | C++            | Python          | DDS Type           |
-| :-------- | :----------:   | ------------:   |  ---------------:  |
-| bool      | bool           | builtins.bool   | boolean            |
-| byte      | uint8_t        | builtins.bytes* | octet              |
-| char      | char           | builtins.str*   | char               |
-| float32   | float          | builtins.float* | float              |
-| int8      | int8_t         | builtins.int*   | octet              |
-| uint8     | uint8_t        | builtins.int*   | octet              |
-| int16     | int16_t        | builtins.int*   | short              |
-| uint16    | uint16_t       | builtins.int*   | unsigned short     |
-| int32     | int32_t        | builtins.int*   | long               |
-| uint32    | uint32_t       | builtins.int*   | unsigned long      |
-| int64     | int64_t        | builtins.int*   | long long          |
-| uint64    | uint64_t       | builtins.int*   | unsigned long long |
-| string    | std::string    | builtins.str    | string             |
-| wstring   | std::u16string | builtins.str    | wstring            |
-
-
-Every built-in-type can be used to define arrays:
-
-
-| Type Name                | C++                | Python         | DDS Type       |
-| :------------------------| :--------------:   | ----:          | ------------:  |
-| static array             | std::array<T, N>   | builtins.list* | T[N]           |
-| unbounded dynamic array  | std::vector        | builtins.list  | sequence       |
-| bounded dynamic array    | custom_class<T, N> | builtins.list* | sequence<T,N>  |
-| bounded string           | std::string        | builtins.str*  | string         |
-
-Example of message definition using arrays and bounded types:
-
-```
-int32[] unbounded_integer_array
-int32[5] five_integers_array
-int32[<=5] up_to_five_integers_array
-
-string string_of_unbounded_size
-string<=10 up_to_ten_characters_string
-
-string[<=5] up_to_five_unbounded_strings
-string<=10[] unbounded_array_of_strings_up_to_ten_characters_each
-string<=10[<=5] up_to_five_strings_up_to_ten_characters_each
-```
-
-
-#### 2.4.1.3 Field Names
-
-- Field names must be lowercase alphanumeric characters with underscores for separating words.
-- Field names must start with an alphabetic character, and they must not end with an underscore or have two consecutive underscores.
-
-
-#### 2.4.1.4 Field Default Values
-
-Defining a default value is done by adding a third element to the field definition line, i.e:
-
-
-``fieldtype fieldname fielddefaultvalue``
-
-
-For example:
-
-
-```
-uint8 x 42
-int16 y -2000
-string full_name "John Doe"
-int32[] samples [-200, -100, 0, 100, 200]
-```
-
-#### 2.4.1.5 Constants
-
-Each constant definition is like a field description with a default value, except that this value can never be changed programatically. This value assignment is indicated by use of an equal ‘=’ sign, e.g.
-
-``constanttype CONSTANTNAME=constantvalue``
-
-Note: Constants names have to be UPPERCASE
-
-
-For example:
-
-```
-int32 X=123
-int32 Y=-123
-string FOO="foo"
-string EXAMPLE='bar'
-```
-
-#### 2.4.1.6 Remarks on Messages
-
-- One needs to define custom messages in .msg files and place them in the msg directory
-- One can define multiple custom messages, each in its own .msg file
-- One can define custom messages based off other previously defined custom messages (usually existing example ROS2 interfaces)
 
 
 ### 2.5 Services
