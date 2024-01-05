@@ -5,8 +5,9 @@ This repository will serve as a quick tutorial/recap and also template for your 
 
 **Note**
 
-- This tutorial is incomplete and needs to be reworked. This is not yet a replacement for the tutorial on the ROS2 website.
-- Defining a custom interface as a package and using it in a seperate package where a topic or service uses it needs to be worked out.
+- This tutorial is incomplete, not organized like the way I would like it to be and many parts need to be reworked. This is not yet a replacement for the tutorial on the ROS2 website.
+- Defining a custom interface as a package and using it in a seperate package where a topic uses it has been completed (need to extend it to be used by services and action servers).
+- Defining a custom interface as a package which builds on another message type needs to be done.
 
 
 ## 1 ROS2 Concepts
