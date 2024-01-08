@@ -223,12 +223,14 @@ You will now have a new folder within your workspace’s ``src`` directory calle
 </br>
 
 
-From the root of the workspace ''multi_robot_ws'' build your package and source the package by running the following commands
+From the root of the workspace ''multi_robot_ws'' build your package, source it and then run it by executing the following commands
 ```
 colcon build --packages-select <package_name>
 source install/setup.bash
+ros2 run <package_name> <ros_node_executable>
 ```
 
+Run the 
 
 ### 2.2.2 Structure of a Package
 
