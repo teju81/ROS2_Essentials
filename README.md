@@ -230,7 +230,8 @@ source install/setup.bash
 ros2 run <package_name> <ros_node_executable>
 ```
 
-Run the 
+Note: The source install/setup.bash needs to be run everytime you open a new terminal. The package is discoverable only after running this command.
+
 
 ### 2.2.2 Structure of a Package
 
