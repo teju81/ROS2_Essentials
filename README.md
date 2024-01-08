@@ -10,6 +10,12 @@ This repository will serve as a quick tutorial/recap and also template for your 
 - Defining a custom interface as a package which builds on another message type needs to be done.
 
 
+
+## Skeleton
+### ROS Concepts
+### 
+
+
 ## 1 ROS2 Concepts
 
 <details>
