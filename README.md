@@ -199,7 +199,7 @@ it is very important that you open a new terminal, separate from the one where y
 
 ## 2.2 Packages
 
-### 2.2.1 Creating a Package
+### 2.2.1 Creating and Building a Package
 
 Make sure you are in the src folder before running the package creation command
 
@@ -221,6 +221,14 @@ ros2 pkg create --build-type ament_python --license Apache-2.0 <package_name>
 
 You will now have a new folder within your workspace’s ``src`` directory called ``my_package``.
 </br>
+
+
+From the root of the workspace ''multi_robot_ws'' build your package and source the package by running the following commands
+```
+colcon build --packages-select <package_name>
+source install/setup.bash
+```
+
 
 ### 2.2.2 Structure of a Package
 
