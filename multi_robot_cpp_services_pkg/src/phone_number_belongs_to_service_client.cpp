@@ -14,12 +14,12 @@ int main(int argc, char **argv)
   rclcpp::init(argc, argv);
   RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "argv[1]: %s", argv[1]);
 
-  /*
-  if (argc != 3) {
-      RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "usage: phone_number_belongs_to_service_client phone_number");
+
+  if (argc != 2) {
+      RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "usage: client <phone_number>");
       return 1;
   }
-  */
+
 
   std::shared_ptr<rclcpp::Node> node = rclcpp::Node::make_shared("phone_number_belongs_to_service_client");
   rclcpp::Client<multi_robot_interfaces_pkg::srv::PhoneNumberBelongsToService>::SharedPtr client =
