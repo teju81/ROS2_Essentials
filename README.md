@@ -469,6 +469,7 @@ The .msg, .srv and .action files are required to be placed in directories called
 - One needs to define custom messages in .msg files and place them in the msg directory
 - One can define multiple custom messages, each in its own .msg file
 - One can define custom messages based off other previously defined custom messages (usually existing example ROS2 interfaces)
+- Corresponding hpp files for the .msg files will be generated with all capitals converted into lower case and underscores inserted as a prefix. For example, corresponding to the message MultiRobotMessage.msg the hpp file generated will be multi_robot_message.hpp. This is true for .srv files as well.
 
 
 
