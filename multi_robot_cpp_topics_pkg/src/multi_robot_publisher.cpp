@@ -30,17 +30,26 @@ class MultiRobotCppPublisherClass : public rclcpp::Node
 {
 public:
   MultiRobotCppPublisherClass()
-  : Node("multi_robot_cpp_publisher_node"), count_(0), std_queue_size_(10), custom_queue_size_(10)
+  : Node("multi_robot_cpp_publisher_node", rclcpp::NodeOptions().allow_undeclared_parameters(true).automatically_declare_parameters_from_overrides(true)), count_(0), std_queue_size_(10), custom_queue_size_(10)
   {
+
+    std::string std_topic_name = this->get_parameter("std_topic_name").as_string();
+    int std_topic_rate = this->get_parameter("std_topic_rate").as_int();
+
+    std::string custom_topic_name = this->get_parameter("custom_topic_name").as_string();
+    int custom_topic_rate = this->get_parameter("custom_topic_rate").as_int();
+
+
+
     // Publisher and timer for the std msgs Interface
-    publisher_std_ = this->create_publisher<std_msgs::msg::String>("multi_robot_std_topic", std_queue_size_);
+    publisher_std_ = this->create_publisher<std_msgs::msg::String>(std_topic_name, std_queue_size_);
     timer_std_ = this->create_wall_timer(
-      500ms, std::bind(&MultiRobotCppPublisherClass::timer_std_callback, this));
+      std::chrono::milliseconds(std_topic_rate), std::bind(&MultiRobotCppPublisherClass::timer_std_callback, this));
 
     // Publisher and timer for the custom msgs Interface
-    publisher_custom_ = this->create_publisher<multi_robot_interfaces_pkg::msg::AddressBook>("multi_robot_custom_topic", custom_queue_size_);
+    publisher_custom_ = this->create_publisher<multi_robot_interfaces_pkg::msg::AddressBook>(custom_topic_name, custom_queue_size_);
     timer_custom_ = this->create_wall_timer(
-      200ms, std::bind(&MultiRobotCppPublisherClass::timer_custom_callback, this));
+      std::chrono::milliseconds(custom_topic_rate), std::bind(&MultiRobotCppPublisherClass::timer_custom_callback, this));
   }
 
 private:

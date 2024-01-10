@@ -10,14 +10,20 @@ class MultiRobotCppSubscriber : public rclcpp::Node
 {
   public:
     MultiRobotCppSubscriber()
-    : Node("multi_robot_subscriber_node"), std_queue_size_(10), custom_queue_size_(10)
+    : Node("multi_robot_subscriber_node", rclcpp::NodeOptions().allow_undeclared_parameters(true).automatically_declare_parameters_from_overrides(true)), std_queue_size_(10), custom_queue_size_(10)
     {
+
+    std::string std_topic_name = this->get_parameter("std_topic_name").as_string();
+
+    std::string custom_topic_name = this->get_parameter("custom_topic_name").as_string();
+
+
       // Create two subscribers, one each for multi_robot_std_topic and multi_robot_custom_topic topics
       std_subscription_ = this->create_subscription<std_msgs::msg::String>(
-      "multi_robot_std_topic", std_queue_size_, std::bind(&MultiRobotCppSubscriber::std_topic_callback, this, _1));
+      std_topic_name, std_queue_size_, std::bind(&MultiRobotCppSubscriber::std_topic_callback, this, _1));
 
       custom_subscription_ = this->create_subscription<multi_robot_interfaces_pkg::msg::AddressBook>(
-      "multi_robot_custom_topic", custom_queue_size_, std::bind(&MultiRobotCppSubscriber::custom_topic_callback, this, _1));
+      custom_topic_name, custom_queue_size_, std::bind(&MultiRobotCppSubscriber::custom_topic_callback, this, _1));
     }
 
   private:

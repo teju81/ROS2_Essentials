@@ -1,0 +1,17 @@
+/**:
+  ros__parameters:
+    std_topic_name: "multi_robot_std_topic"
+    custom_topic_name: "multi_robot_custom_topic"
+
+/multi_robot_cpp_publisher_node:
+  ros__parameters:
+    std_topic_rate: 500
+    std_queue_size_: 10
+    custom_topic_rate: 500
+    custom_queue_size_: 10
+
+
+/multi_robot_cpp_subscriber_node:
+  ros__parameters:
+    std_queue_size_: 10
+    custom_queue_size_: 10
