@@ -168,6 +168,12 @@ An Action consists of two parts: the action server and the action client. There 
 
 Parameters in ROS 2 are associated with individual nodes. Parameters are used to configure nodes at startup (and during runtime), without changing the code. The lifetime of a parameter is tied to the lifetime of the node (though the node could implement some sort of persistence to reload values after restart).
 
+- Unlike in ROS1 where parameters were served by the roscore, in ROS2 the parameters are associated with a node.
+- parameters can be set in 3 ways \
+    a) From command line using ``ros param set /<node_name> <parameter_name> <value> \
+    b) From launch files \
+    c) From YAML files
+
 **To be completed**
 
 </details>
