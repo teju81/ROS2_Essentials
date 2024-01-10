@@ -173,7 +173,7 @@ Parameters in ROS 2 are associated with individual nodes. Parameters are used to
     a) From command line using ``ros param set /<node_name> <parameter_name> <value> \
     b) From launch files \
     c) From YAML files
-
+- Parameters are declared inside the node or the node can be configured to avoid declaring at bringup/spinup of the node.
 **To be completed**
 
 </details>
