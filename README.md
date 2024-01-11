@@ -178,6 +178,7 @@ Parameters in ROS 2 are associated with individual nodes. Parameters are used to
 - Parameters have descriptions and constraints that can be defined.
 
 **What is the difference between parameter and argument in a launch file node declaration?**
+**What is output=screen in a launch file node declaration?**
 
 **To be completed**
 
