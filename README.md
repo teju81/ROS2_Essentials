@@ -176,6 +176,9 @@ Parameters in ROS 2 are associated with individual nodes. Parameters are used to
 - Parameters are declared inside the node or the node can be configured to avoid declaring at bringup/spinup of the node.
 - Parameter updates have callbacks that can be customized to run with a desired behavior.
 - Parameters have descriptions and constraints that can be defined.
+
+**What is the difference between parameter and argument in a launch file node declaration?**
+
 **To be completed**
 
 </details>
