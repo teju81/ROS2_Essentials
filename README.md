@@ -180,6 +180,51 @@ Parameters in ROS 2 are associated with individual nodes. Parameters are used to
 **What is the difference between parameter and argument in a launch file node declaration?**
 **What is output=screen in a launch file node declaration?**
 
+
+### 1.7 Launch Files
+- Launch Description
+- Launch Actions: IncludeLaunchDescription, DeclareLaunchArgument
+- Launch ROS Actions: Node PushRosNameSpace
+- Launch Substitutions: - Launch configuration, PythonExpression
+- Launch Conditions: IfCondition
+- Launch Description Sources: PythonLaunchDescriptionSource
+
+**Example of multiple launch files being launched inside a mother launch file**
+
+```
+return LaunchDescription([
+        IncludeLaunchDescription(
+            PythonLaunchDescriptionSource([nav2_launch_file_dir, '/localization_neo.launch.py']),
+            condition=IfCondition(PythonExpression(['not ', use_amcl])),
+            launch_arguments={
+                'map': map_dir,
+                'use_sim_time': use_sim_time,
+                'use_multi_robots': use_multi_robots,
+                'params_file': param_dir,
+                'namespace': namespace}.items(),
+        ),
+        IncludeLaunchDescription(
+            PythonLaunchDescriptionSource([nav2_launch_file_dir, '/localization_amcl.launch.py']),
+            condition=IfCondition(use_amcl),
+            launch_arguments={
+                'map': map_dir,
+                'use_sim_time': use_sim_time,
+                'use_multi_robots': use_multi_robots,
+                'params_file': param_dir,
+                'namespace': namespace}.items(),
+        ),
+
+        IncludeLaunchDescription(
+            PythonLaunchDescriptionSource([nav2_launch_file_dir, '/navigation_neo.launch.py']),
+            launch_arguments={'namespace': namespace,
+                              'use_sim_time': use_sim_time,
+                              'params_file': param_dir}.items()),
+        ])
+```
+
+TBD
+
+
 **To be completed**
 
 </details>
