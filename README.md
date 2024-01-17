@@ -272,10 +272,13 @@ TBD
 
 ## 2.1 Create Workspace
 
-Run the following commands to create your workspace
+Run the following commands to create your workspace. The rosdep commands help in detecting any missing dependencies and automatically install the missing packages. This is optional but a good practice to run before ``colcon buiild``.
 ```
 mkdir -p ~/ros2_ws/src
 cd <ros2_ws>
+sudo rosdep init
+rosdep update
+rosdep install -i --from-path src --rosdistro $ROS_DISTRO -y
 colcon build
 ```
 
