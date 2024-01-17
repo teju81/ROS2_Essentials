@@ -323,7 +323,7 @@ From the root of the workspace ''multi_robot_ws'' build your package, source it 
 ```
 colcon build --packages-select <package_name>
 source install/setup.bash
-ros2 run <package_name> <ros_node_executable>
+ros2 run <package_name> <ros_node_executable> --ros-args --params-file <path to config.yaml>
 ```
 
 Note: The source install/setup.bash needs to be run everytime you open a new terminal. The package is discoverable only after running this command.
